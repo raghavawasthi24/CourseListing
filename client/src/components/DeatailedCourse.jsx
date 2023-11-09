@@ -19,8 +19,8 @@ export default function DeatailedCourse() {
             <p className="bg-green-400 text-white px-1 text-sm">In Progress</p>
             <p>Click</p>
           </div>
-          <p className="font-bold text-gray-700 m-0">Full Stack Development</p>
-          <p className="text-gray-500 m-0">Neeraj Chopra</p>
+          <p className="font-bold text-gray-700 ">Full Stack Development</p>
+          <p className="text-gray-500 ">Neeraj Chopra</p>
           <hr className="my-4" />
           <div className="flex flex-col gap-3">
             <div>

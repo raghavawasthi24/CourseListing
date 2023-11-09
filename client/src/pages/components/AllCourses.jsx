@@ -9,10 +9,7 @@ export default function AllCourses() {
   return (
     <div className="">
       <p className="font-bold text-xl mx-5">All Courses</p>
-      <DeatailedCourse />
-      <EnrolledCourseCard />
-
-     
+      <DeatailedCourse />     
     </div>
   );
 }
