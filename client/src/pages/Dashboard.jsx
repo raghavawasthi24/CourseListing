@@ -9,7 +9,6 @@ export default function Dashboard() {
     <div>
       <Header/>
       <Search/>
-      <EnrolledCourses/>
       <AllCourses/>
     </div>
   )
