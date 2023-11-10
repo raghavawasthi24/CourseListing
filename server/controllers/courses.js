@@ -1,6 +1,8 @@
 require("dotenv").config();
+const course = require("../models/course");
 const Courses = require("../models/course");
 const { v4: uuidv4 } = require("uuid");
+const user = require("../models/user");
 // const axios = require("axios");
 
 const getCourses = async (req, res) => {
@@ -30,10 +32,58 @@ const getDetails = async (req, res) => {
         courseDetails,
       });
     }
-  } catch (err) {
+  } catch(err) {
     console.log(err);
+    res.status(500).json({msg:"user or courses does not exists"});
+  }
+};
+
+const markCompleted = async (req, res) => {
+  const { userId, courseId } = req.body;
+
+  try {
+    if (!userId || !courseId)
+      return res.status(400).json({ msg: "userId or courseId not provided" });
+
+    const updatedStudent = await user.findByIdAndUpdate(
+      userId,
+      { $set: { "courses.$[elem].completed": true } },
+      { arrayFilters: [{ "elem.id": courseId }], new: true }
+    );
+
+    if (!updatedStudent) {
+      return res.status(404).json({ msg: "Student not found" });
+    }
+
+    res.status(200).json({ msg: "Course set as completed" });
+  } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 };
 
-module.exports = { getCourses, getDetails };
+
+const enrolledCourses = async (req, res) => {
+  const userId  = req.params.id;
+  try{
+    if(userId)
+    {
+      const student = await user.findById(userId);
+      if(student)
+      {
+        const courses = student.courses;
+        return res.status(200).json({msg:"courses fetched successfully",courses})
+      }
+      else{
+        return res.status(404).json({msg:"student not found"})
+      }
+    }
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json(err);
+}
+}
+
+
+module.exports = { getCourses, getDetails,markCompleted, enrolledCourses };

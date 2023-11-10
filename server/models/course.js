@@ -42,7 +42,7 @@ let courseSchema = mongoose.Schema({
     type: Array,
     required: true,
   },
-  
+
   syllabus: [
     {
       week: {
@@ -59,22 +59,7 @@ let courseSchema = mongoose.Schema({
       },
     },
   ],
-  students: [
-    {
-      id: {
-        type: String,
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      email: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  students: [ ],
 });
 
 module.exports = mongoose.model("Course", courseSchema);

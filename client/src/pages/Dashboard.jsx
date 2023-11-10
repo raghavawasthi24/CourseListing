@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import Search from '../components/Search'
 import AllCourses from './components/AllCourses'
 import EnrolledCourses from './components/EnrolledCourses'
+import axios from 'axios'
 
 export default function Dashboard() {
+
   return (
     <div>
       <Header/>

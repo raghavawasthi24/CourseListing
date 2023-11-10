@@ -1,6 +1,8 @@
 require("dotenv").config();
+const course = require("../models/course");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const axios = require('axios');
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -55,7 +57,41 @@ const registerUser = async (req, res) => {
   }
 };
 
-
+const enrollUser = async(req, res) => {
+  const {userId, courseId} = req.body;
+  try{
+    if(!userId && !courseId)
+     return res.status(400).json({msg:"userId or courseId not provided"});
+    else{
+       const student =await User.findById(userId);
+       const courses =await course.findById(courseId);
+       if(!student.courses.includes(courseId)){
+        await student.updateOne({$push: {courses:{
+          id:courseId,
+          name:courses.name,
+          instructor:courses.instructor,
+          thumbnail:courses.thumbnail,
+          due_date:courses.due_date,
+          progress:"0",
+          completed:false
+        }}})
+        await courses.updateOne({$push: {students:{
+          id:userId,
+          name:student.name,
+          email:student.email
+        }}})
+        return res.status(200).json({msg:"student enrolled in course successfully"})
+       }
+       else{
+        return res.status(404).json({msg:"student already enrolled"})
+       }
+    }
+  }
+  catch (err){
+    console.log(err);
+    res.status(500).json(err);
+  }
+}
 
 
 
@@ -79,4 +115,5 @@ const registerUser = async (req, res) => {
 //     }
 // }
 
-module.exports = { loginUser, registerUser };
+
+module.exports = { loginUser, registerUser, enrollUser };
