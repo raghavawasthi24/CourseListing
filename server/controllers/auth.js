@@ -1,75 +1,82 @@
 require("dotenv").config();
-const User = require("../models/users");
-const { v4: uuidv4 } = require("uuid");
-const axios = require("axios");
-const Json2csvParser = require("json2csv").Parser;
-const fs = require("fs");
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
-const fetchUser = (req, res) => {
-  try {
-    axios
-      .get("https://gorest.co.in/public-api/users")
-      .then(async (response) => {
-        if (response) {
-          const users = response.data.data;
-          console.log(users);
-          for (let i = 0; i < users.length; i++) {
-            const now_user = users[i];
-            const d_user = new User(now_user);
-            console.log(now_user);
-            await d_user.save();
-          }
-          res.status(200).json({
-            msg: "Users fetched successfully",
-            users,
-          });
-        }
-      });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
 
-const getUser = async (req, res) => {
-  const allUsers = await User.find();
-  return res.status(200).json({
-    msg: "All users fetched successfully",
-    allUsers,
-  });
-};
-
-const updateUser = async (req, res) => {
-  const { id, name, email, gender, status } = req.body;
-  const userId = req.params.id;
-  try {
-    const user = await User.findById(userId);
-    console.log(user);
-    await user.updateOne({ $set: { id, name, email, gender, status } });
-    return res.status(200).json({
-      msg: "User updated successfully",
+  const user = await User.findOne({ email });
+  if (user) {
+    const payload = { _id: user._id };
+    const cookie_token = jwt.sign(payload, process.env.SECRET_KEY);
+    res.cookie("jwt", cookie_token, {
+      secure: true,
+      expires: new Date(Date.now() + 10800),
+      httpOnly: false,
     });
-  } catch (err) {
-    return res.status(500).json(err);
+    if (password == user.password) {
+      res.status(200).json({ msg: "Logeed in", jwt_token: cookie_token });
+    } else {
+      res.status(200).json({ msg: "password not matched" });
+    }
+  } else {
+    res.status(200).json({ msg: "Not User" });
   }
 };
 
-const exportCSV = async (req, res) => {
-  const data = await User.find();
-  const json2csvParser = new Json2csvParser();
-  const fields = ["id", "name", "email", "gender", "status"];
-  const opts = { fields };
-  const csvData = json2csvParser.parse(data, opts);
+
+
+const registerUser = async (req, res) => {
+  const { name, email,gender, password } = req.body;
+
+  // Check if the user already exists in the database
   try {
-    fs.writeFile("userData.csv", csvData, function (error) {
-      if (error) throw error;
-      console.log("Exported successfully!");
-      return res.status(200).json({
-        msg: "Exported successfully!",
-      });
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ msg: 'User is already registered' });
+    }
+
+    // If the user doesn't exist, create a new user
+    const newUser = new User({
+      name: name,
+      email: email,
+      password: password,
+      gender:gender
     });
-  } catch {
-    res.status(500).json(err);
+
+    // Save the user to the database
+    await newUser.save();
+
+    res.status(201).json({ message: 'Registration successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Registration failed' });
   }
 };
 
-module.exports = { getUser, updateUser, fetchUser, exportCSV };
+
+
+
+
+// const getUser= async (req,res)=>{
+//     const {id} = req.body;
+//     if(id){
+//         const user = await User.findById(id);
+//         if(user)
+//         {
+//            res.status(200).json({"msg":"user found","data":{
+//             "name":user.name,
+//             "number":user.number
+//            }});
+//         }
+//         else{
+//             res.status(200).json({"msg":"user not found"});
+//         }
+//     }
+//     else{
+//         res.status(200).json({"msg":"id not found"});
+//     }
+// }
+
+module.exports = { loginUser, registerUser };

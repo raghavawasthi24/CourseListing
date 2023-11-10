@@ -1,13 +1,15 @@
 const express = require("express");
-const { getUser, updateUser, fetchUser, exportCSV } = require("../controllers/users");
+const { getCourses, getDetails } = require("../controllers/courses");
+const { loginUser, registerUser } = require("../controllers/auth");
 const router = express.Router();
 
 
-//Routes for user 
-router.get("/getUsers", getUser);
-router.get("/fetchUsers", fetchUser);
-router.put("/updateUser/:id", updateUser);
-router.post("/export", exportCSV);
+//Routes for courses
+router.get("/getCourses",getCourses)
+router.get("/getDetails/:id",getDetails)
 
+//Routes for users
+router.post("/login",loginUser)
+router.post("/register",registerUser)
 
 module.exports = router;
