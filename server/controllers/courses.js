@@ -85,5 +85,24 @@ const enrolledCourses = async (req, res) => {
 }
 }
 
+const search = async (req, res) => {
+  const query = req.body.query;
 
-module.exports = { getCourses, getDetails,markCompleted, enrolledCourses };
+  try {
+    const courses = await Courses.find({
+      $or: [
+        { name: { $regex: new RegExp(query, 'i') } },
+        { instructor: { $regex: new RegExp(query, 'i') } },
+      ],
+    });
+
+    return res.status(200).json({ msg: "Courses fetched successfully", courses });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+};
+
+
+
+module.exports = { getCourses, getDetails,markCompleted, enrolledCourses,search };

@@ -1,5 +1,5 @@
 const express = require("express");
-const { getCourses, getDetails, markCompleted, enrolledCourses } = require("../controllers/courses");
+const { getCourses, getDetails, markCompleted, enrolledCourses, search } = require("../controllers/courses");
 const { loginUser, registerUser, enrollUser } = require("../controllers/auth");
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.get("/getCourses",getCourses)
 router.get("/getDetails/:id",getDetails)
 router.post("/markCompleted", markCompleted)
 router.get("/enrolledCourses/:id", enrolledCourses)
+router.get("/search", search)
 
 //Routes for users
 router.post("/login",loginUser)
