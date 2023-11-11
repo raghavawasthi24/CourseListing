@@ -14,7 +14,7 @@ export default function AllCourses() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/getCourses/${page}`)
+      .get(`${process.env.API_URL}/api/getCourses/${page}`)
       .then((res) => {
         // console.log(res.data);
         dispatch(getCourses(res.data.allCourses));
