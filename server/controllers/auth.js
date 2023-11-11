@@ -17,7 +17,7 @@ const loginUser = async (req, res) => {
       httpOnly: false,
     });
     if (password == user.password) {
-      res.status(200).json({ msg: "Logeed in", jwt_token: cookie_token });
+      res.status(200).json({ msg: "Logeed in", jwt_token: cookie_token, id:user._id });
     } else {
       res.status(200).json({ msg: "password not matched" });
     }
