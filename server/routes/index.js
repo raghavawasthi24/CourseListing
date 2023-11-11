@@ -1,5 +1,5 @@
 const express = require("express");
-const { getCourses, getDetails, markCompleted, enrolledCourses, search } = require("../controllers/courses");
+const { getCourses, getDetails, markCompleted, enrolledCourses, search, likeCourse, unlikeCourse } = require("../controllers/courses");
 const { loginUser, registerUser, enrollUser } = require("../controllers/auth");
 const router = express.Router();
 
@@ -11,6 +11,8 @@ router.get("/getDetails/:id",getDetails)
 router.post("/markCompleted", markCompleted)
 router.get("/enrolledCourses/:id", enrolledCourses)
 router.post("/search", search)
+router.post("/likeCourse",likeCourse)
+router.post("/unlikeCourse",unlikeCourse)
 
 //Routes for users
 router.post("/login",loginUser)

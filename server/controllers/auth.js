@@ -65,8 +65,8 @@ const enrollUser = async(req, res) => {
     else{
        const student =await User.findById(userId);
        const courses =await course.findById(courseId);
-       const jd = student.courses.filter((course)=>course.id==courseId)
-       if(jd.length==0){
+       const enroll = student.courses.filter((course)=>course.id==courseId)
+       if(enroll.length==0){
         await student.updateOne({$push: {courses:{
           id:courseId,
           name:courses.name,
@@ -74,7 +74,8 @@ const enrollUser = async(req, res) => {
           thumbnail:courses.thumbnail,
           due_date:courses.due_date,
           progress:"0",
-          completed:false
+          completed:false,
+          liked:false
         }}})
         await courses.updateOne({$push: {students:{
           id:userId,

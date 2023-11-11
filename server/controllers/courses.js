@@ -1,5 +1,4 @@
 require("dotenv").config();
-const course = require("../models/course");
 const Courses = require("../models/course");
 const { v4: uuidv4 } = require("uuid");
 const user = require("../models/user");
@@ -32,7 +31,7 @@ const getCourses = async (req, res) => {
     const totalCourses = await Courses.countDocuments();
     
     const allCourses = await Courses.find().select(
-      "thumbnail name instructor enrollmentStatus duration location schedule"
+      "thumbnail name instructor enrollmentStatus duration location shedule"
     ).skip(startIndex).limit(limit);
 
     const pagination = {};
@@ -150,5 +149,53 @@ const search = async (req, res) => {
 };
 
 
+const likeCourse = async (req, res) => {
+  const { userId, courseId } = req.body;
+  try {
+    if (!userId || !courseId) {
+      return res.status(400).json({ msg: "userId or courseId not provided" });
+    } else {
+      const course = await Courses.findById(courseId); // Assuming your model is named 'Course'
+      console.log(course);
 
-module.exports = { getCourses, getDetails,markCompleted, enrolledCourses,search };
+      if (!course.likes.includes(userId)) {
+        await course.updateOne({ $push: { likes: userId } });
+        return res.status(200).json({ msg: "Student liked the course" });
+      } else {
+        return res.status(404).json({ msg: "Student already liked" });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+};
+
+
+
+
+const unlikeCourse =async(req,res)=>{
+  const {userId,courseId} = req.body;
+  try{
+    if(!userId && !courseId)
+     return res.status(400).json({msg:"userId or courseId not provided"});
+    else{
+       
+       const courses =await course.findById(courseId);
+       if(courses.likes.includes(userId)){
+    
+        await courses.updateOne({$pull: {likes:{userId}}})
+        return res.status(200).json({msg:"student unliked the course"})
+       }
+       else{
+        return res.status(404).json({msg:"student haven't liked yet."})
+       }
+    }
+  }
+  catch (err){
+    console.log(err);
+    res.status(500).json(err);
+  }
+}
+
+module.exports = { getCourses, getDetails,markCompleted, enrolledCourses,search, likeCourse, unlikeCourse };

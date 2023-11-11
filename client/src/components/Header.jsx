@@ -99,7 +99,7 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>LogOut</MenuItem>
     </Menu>
   );
 
@@ -173,9 +173,8 @@ export default function Header() {
             noWrap
             component="div"
             color="black"
-            sx={{ display: { xs: "none", sm: "block" } }}
           >
-            Courses Listing
+            Courses
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />

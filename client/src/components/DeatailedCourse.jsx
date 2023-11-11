@@ -172,26 +172,17 @@ export default function DeatailedCourse({
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ width: "full", padding: "0" }}>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                  </Typography>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                  </Typography>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                  </Typography>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                  </Typography>
+                  {
+                    details?.syllabus?.map((syllabus,key)=>{
+                      return(
+                        <div className="my-2">
+                          <p><b>Week:</b>{syllabus.week}</p>
+                          <p><b>Topic:</b>{syllabus.topic}</p>
+                          <p><b>Content:</b>{syllabus.content}</p>
+                        </div>
+                      )
+                    })
+                  }
                 </AccordionDetails>
               </Accordion>
             </div>

@@ -46,7 +46,7 @@ export default function AllCourses() {
         })}
       </div>
       <div spacing={2} className=" flex justify-center my-5">
-        <Pagination count={10} onChange={e=>setPage(e.target.innerText)} className="w-fit"/>
+        <Pagination count={2} onChange={e=>setPage(e.target.innerText)} className="w-fit"/>
       </div>
     </div>
   );
