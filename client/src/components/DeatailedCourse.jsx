@@ -32,18 +32,36 @@ const style = {
   p: 4,
 };
 
-export default function DeatailedCourse({id,name,instructor,status,location,shedule,duration,thumbnail}) {
+export default function DeatailedCourse({
+  id,
+  name,
+  instructor,
+  status,
+  location,
+  shedule,
+  duration,
+  thumbnail,
+}) {
   const dispatch = useDispatch();
-  const details = useSelector((state)=>state.courses.courseDetails)
+  const details = useSelector((state) => state.courses.courseDetails);
   const [open, setOpen] = React.useState(false);
-  console.log(details)
-  const handleOpen = () =>{
-    axios.get(`http://localhost:5000/api/getDetails/${id}`)
-    .then((res)=>{
-      dispatch(getDetails(res.data.courseDetails))
-    })
-     setOpen(true)}
+  console.log(details);
+  const handleOpen = () => {
+    axios.get(`http://localhost:5000/api/getDetails/${id}`).then((res) => {
+      dispatch(getDetails(res.data.courseDetails));
+    });
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
+
+  const enrollStudent= ()=>{
+    axios.post(`http://localhost:5000/api/enroll`,{
+      userId:"654e11505265f393f94959ce",
+      courseId:id
+    }).then((res) => {
+      console.log(res.data);
+    });
+  }
 
   return (
     <div>
@@ -53,9 +71,8 @@ export default function DeatailedCourse({id,name,instructor,status,location,shed
           alt=""
         />
         <div className="flex flex-col p-2">
-         
-            <p className="bg-green-400 w-fit text-white px-1 text-sm">{status}</p>
-          
+          <p className="bg-green-400 w-fit text-white px-1 text-sm">{status}</p>
+
           <p className="font-bold text-gray-700 ">{name}</p>
           <p className="text-gray-500 ">{instructor}</p>
           <hr className="my-4" />
@@ -98,15 +115,18 @@ export default function DeatailedCourse({id,name,instructor,status,location,shed
             </p>
 
             <p>
-              <span className="font-semibold">Course Name:</span> {details?.name}
+              <span className="font-semibold">Course Name:</span>{" "}
+              {details?.name}
             </p>
             <p>
-              <span className="font-semibold">Instructor's Name:</span> {details?.instructor}
+              <span className="font-semibold">Instructor's Name:</span>{" "}
+              {details?.instructor}
             </p>
 
             <div>
               <div className="flex items-center">
-                <AiOutlineCalendar className="w-4 h-4 mr-1" /> {details?.duration}
+                <AiOutlineCalendar className="w-4 h-4 mr-1" />{" "}
+                {details?.duration}
               </div>
               <div className="flex items-center">
                 <CiLocationOn className="w-4 h-4 mr-1" />
@@ -114,27 +134,21 @@ export default function DeatailedCourse({id,name,instructor,status,location,shed
               </div>
               <div className="flex items-center">
                 <AiOutlineFieldTime className="w-4 h-4 mr-1" />
-               {details?.shedule}
+                {details?.shedule}
               </div>
             </div>
 
             <div>
               <p className="text-lg font-bold">Description</p>
-              <p>
-              {details?.description}
-              </p>
+              <p>{details?.description}</p>
             </div>
 
             <div>
               <p className="text-lg font-bold">Pre-Requisite</p>
               <ol>
-                {
-                  details?.prerequisites?.map((requisites,key)=>{
-                    return(
-                      <li key={key}>{requisites}</li>
-                    )
-                  })
-                }
+                {details?.prerequisites?.map((requisites, key) => {
+                  return <li key={key}>{requisites}</li>;
+                })}
               </ol>
             </div>
 
@@ -176,7 +190,7 @@ export default function DeatailedCourse({id,name,instructor,status,location,shed
             </div>
           </div>
           <div className="flex justify-center">
-            <Button variant="contained">Enroll</Button>
+            <Button variant="contained" onClick={enrollStudent}>Enroll</Button>
           </div>
         </Box>
       </Modal>
