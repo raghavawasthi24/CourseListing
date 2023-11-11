@@ -65,7 +65,8 @@ const enrollUser = async(req, res) => {
     else{
        const student =await User.findById(userId);
        const courses =await course.findById(courseId);
-       if(!student.courses.includes(courseId)){
+       const jd = student.courses.filter((course)=>course.id==courseId)
+       if(jd.length==0){
         await student.updateOne({$push: {courses:{
           id:courseId,
           name:courses.name,

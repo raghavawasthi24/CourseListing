@@ -16,6 +16,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { getCourses, getDetails } from "../redux/slices/CoursesSlice";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const style = {
   position: "absolute",
@@ -23,7 +25,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "90%",
-  height: "90%",
+  maxHeight:"90%",
   overflowY: "auto",
   bgcolor: "background.paper",
   boxShadow: 24,
@@ -45,7 +47,9 @@ export default function DeatailedCourse({
   const dispatch = useDispatch();
   const details = useSelector((state) => state.courses.courseDetails);
   const [open, setOpen] = React.useState(false);
-  console.log(details);
+  // console.log(details);
+
+
   const handleOpen = () => {
     axios.get(`http://localhost:5000/api/getDetails/${id}`).then((res) => {
       dispatch(getDetails(res.data.courseDetails));
@@ -60,6 +64,9 @@ export default function DeatailedCourse({
       courseId:id
     }).then((res) => {
       console.log(res.data);
+      toast.success("You are enrolled!")
+    }).catch(()=>{
+      toast.error("Already Enrolled")
     });
   }
 
@@ -67,7 +74,7 @@ export default function DeatailedCourse({
     <div>
       <div className="w-[330px] lg:w-[300px] border rounded-xl overflow-hidden">
         <img
-          src="https://trainings.internshala.com/cached_uploads/homepage/media/courses_section/card_images/web-development.png"
+          src={thumbnail}
           alt=""
         />
         <div className="flex flex-col p-2">
@@ -190,10 +197,11 @@ export default function DeatailedCourse({
             </div>
           </div>
           <div className="flex justify-center">
-            <Button variant="contained" onClick={enrollStudent}>Enroll</Button>
+            <Button variant="contained" onClick={enrollStudent} sx={{marginTop:"2rem"}}>Enroll</Button>
           </div>
         </Box>
       </Modal>
+      <ToastContainer />
     </div>
   );
 }

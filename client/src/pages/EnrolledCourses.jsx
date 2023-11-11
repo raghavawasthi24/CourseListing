@@ -12,7 +12,7 @@ export default function EnrolledCourses() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  console.log(enrolledCourseList);
+  // console.log(enrolledCourseList);
 
   useEffect(()=>{
     if(!localStorage.getItem("token"))

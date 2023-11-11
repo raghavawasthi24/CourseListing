@@ -21,7 +21,7 @@ export default function EnrolledCourseCard({
     if(!markedValue)
     {
       axios.post("http://localhost:5000/api/markCompleted",{
-        userId:"654e11505265f393f94959ce",
+        userId:localStorage.getItem("id"),
         courseId:id
       }).then((res)=>{
         console.log("completed")
@@ -29,6 +29,7 @@ export default function EnrolledCourseCard({
       })
     }
   }
+  
   return (
     <div>
       <div className="w-[350px] m-4 border rounded-xl overflow-hidden">

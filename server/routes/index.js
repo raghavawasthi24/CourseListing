@@ -5,7 +5,8 @@ const router = express.Router();
 
 
 //Routes for courses
-router.get("/getCourses",getCourses)
+// router.get("/getCourses",getCourses)
+router.get("/getCourses/:pageNo",getCourses)
 router.get("/getDetails/:id",getDetails)
 router.post("/markCompleted", markCompleted)
 router.get("/enrolledCourses/:id", enrolledCourses)
