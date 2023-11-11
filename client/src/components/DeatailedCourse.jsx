@@ -5,7 +5,7 @@ import {
   AiOutlineFieldTime,
 } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -14,6 +14,8 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { getCourses, getDetails } from "../redux/slices/CoursesSlice";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -30,10 +32,17 @@ const style = {
   p: 4,
 };
 
-export default function DeatailedCourse({name,instructor,status,location,shedule,duration,thumbnail}) {
+export default function DeatailedCourse({id,name,instructor,status,location,shedule,duration,thumbnail}) {
   const dispatch = useDispatch();
+  const details = useSelector((state)=>state.courses.courseDetails)
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  console.log(details)
+  const handleOpen = () =>{
+    axios.get(`http://localhost:5000/api/getDetails/${id}`)
+    .then((res)=>{
+      dispatch(getDetails(res.data.courseDetails))
+    })
+     setOpen(true)}
   const handleClose = () => setOpen(false);
 
   return (
@@ -85,49 +94,47 @@ export default function DeatailedCourse({name,instructor,status,location,shedule
           <div className="flex flex-col gap-2">
             <p className="font-bold text-2xl">About Course</p>
             <p className="w-fit bg-green-400 text-white px-1 text-sm">
-              In Progress
+              {details?.status}
             </p>
 
             <p>
-              <span className="font-semibold">Course Name:</span> Full Stack
-              Development
+              <span className="font-semibold">Course Name:</span> {details?.name}
             </p>
             <p>
-              <span className="font-semibold">Instructor's Name:</span> Neeraj
-              Chopra
+              <span className="font-semibold">Instructor's Name:</span> {details?.instructor}
             </p>
 
             <div>
               <div className="flex items-center">
-                <AiOutlineCalendar className="w-4 h-4 mr-1" /> 6 Months
+                <AiOutlineCalendar className="w-4 h-4 mr-1" /> {details?.duration}
               </div>
               <div className="flex items-center">
                 <CiLocationOn className="w-4 h-4 mr-1" />
-                Karnaataka, India
+                {details?.location}
               </div>
               <div className="flex items-center">
                 <AiOutlineFieldTime className="w-4 h-4 mr-1" />
-                6PM-PM, Thursaday, Friday
+               {details?.shedule}
               </div>
             </div>
 
             <div>
               <p className="text-lg font-bold">Description</p>
               <p>
-                In publishing and graphic design, Lorem ipsum is a placeholder
-                text commonly used to demonstrate the visual form of a document
-                or a typeface without relying on meaningful content. Lorem ipsum
-                may be used as a placeholder before final copy is available.
+              {details?.description}
               </p>
             </div>
 
             <div>
               <p className="text-lg font-bold">Pre-Requisite</p>
               <ol>
-                <li>Lorem ipsum is a placeholder text</li>
-                <li>graphic design, Lorem ipsum is a place</li>
-                <li>graphic design, Lorem ipsum is a place</li>
-                <li>e visual form of a document or a typeface without</li>
+                {
+                  details?.prerequisites?.map((requisites,key)=>{
+                    return(
+                      <li key={key}>{requisites}</li>
+                    )
+                  })
+                }
               </ol>
             </div>
 

@@ -27,7 +27,7 @@ export default function AllCourses() {
       <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 lg:grid-cols-3 ">
         {
           courseList.map((courses, key) => {
-            return <DeatailedCourse key={key} name={courses.name} instructor={courses.instructor} status={courses.enrollmentStatus} location={courses.location} shedule={courses.shedule} duration={courses.duration} thumbnail={courses.thumbnail}/>;
+            return <DeatailedCourse key={key} id={courses._id} name={courses.name} instructor={courses.instructor} status={courses.enrollmentStatus} location={courses.location} shedule={courses.shedule} duration={courses.duration} thumbnail={courses.thumbnail}/>;
           })
         }
       </div>
