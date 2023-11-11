@@ -9,6 +9,9 @@ const CoursesSlice = createSlice({
   name: "courses",
   initialState,
   reducers: {
+    getCourses:(state,action)=>{
+        state.coursesList = action.payload
+    },
    toggleDisplay:(state)=>{
         state.displayCourseDetails = !state.displayCourseDetails
    }
@@ -16,5 +19,5 @@ const CoursesSlice = createSlice({
 });
 
 export default CoursesSlice.reducer;
-export const { toggleDisplay} =
+export const { toggleDisplay,getCourses} =
   CoursesSlice.actions;

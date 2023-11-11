@@ -9,7 +9,7 @@ router.get("/getCourses",getCourses)
 router.get("/getDetails/:id",getDetails)
 router.post("/markCompleted", markCompleted)
 router.get("/enrolledCourses/:id", enrolledCourses)
-router.get("/search", search)
+router.post("/search", search)
 
 //Routes for users
 router.post("/login",loginUser)

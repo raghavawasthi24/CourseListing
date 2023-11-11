@@ -30,7 +30,7 @@ const style = {
   p: 4,
 };
 
-export default function DeatailedCourse() {
+export default function DeatailedCourse({name,instructor,status,location,shedule,duration,thumbnail}) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -45,23 +45,23 @@ export default function DeatailedCourse() {
         />
         <div className="flex flex-col p-2">
          
-            <p className="bg-green-400 w-fit text-white px-1 text-sm">In Progress</p>
+            <p className="bg-green-400 w-fit text-white px-1 text-sm">{status}</p>
           
-          <p className="font-bold text-gray-700 ">Full Stack Development</p>
-          <p className="text-gray-500 ">Neeraj Chopra</p>
+          <p className="font-bold text-gray-700 ">{name}</p>
+          <p className="text-gray-500 ">{instructor}</p>
           <hr className="my-4" />
           <div className="flex flex-col gap-3">
             <div>
               <div className="text-gray-500 flex items-center">
-                <AiOutlineCalendar className="w-4 h-4 mr-1" /> 6 Months
+                <AiOutlineCalendar className="w-4 h-4 mr-1" /> {duration}
               </div>
               <div className="text-gray-500 flex items-center">
                 <CiLocationOn className="w-4 h-4 mr-1" />
-                Karnaataka, India
+                {location}
               </div>
               <div className="text-gray-500 flex items-center">
                 <AiOutlineFieldTime className="w-4 h-4 mr-1" />
-                6PM-PM, Thursaday, Friday
+                {shedule}
               </div>
             </div>
             <p
