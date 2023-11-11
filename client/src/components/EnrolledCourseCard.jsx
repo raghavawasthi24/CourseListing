@@ -20,7 +20,7 @@ export default function EnrolledCourseCard({
   const markComplete =(e)=>{
     if(!markedValue)
     {
-      axios.post(`${process.env.API_URL}/api/markCompleted`,{
+      axios.post(`${import.meta.env.VITE_APP_URL}/api/markCompleted`,{
         userId:localStorage.getItem("id"),
         courseId:id
       }).then((res)=>{

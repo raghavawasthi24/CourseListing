@@ -19,12 +19,12 @@ export default function Login() {
   };
 
   const login = () => {
-    axios.post(`${process.env.API_URL}/api/login`, {});
+    axios.post(`${import.meta.env.VITE_APP_URL}/api/login`, {});
   };
 
   const loginDirectly = () => {
     axios
-      .post(`${process.env.API_URL}/api/login`, {
+      .post(`${import.meta.env.VITE_APP_URL}/api/login`, {
         email: "raghavawasthi240@gmail.com",
         password: "string",
       })

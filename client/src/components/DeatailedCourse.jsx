@@ -51,7 +51,7 @@ export default function DeatailedCourse({
 
 
   const handleOpen = () => {
-    axios.get(`${process.env.API_URL}/api/getDetails/${id}`).then((res) => {
+    axios.get(`${import.meta.env.VITE_APP_URL}/api/getDetails/${id}`).then((res) => {
       dispatch(getDetails(res.data.courseDetails));
     });
     setOpen(true);
@@ -59,7 +59,7 @@ export default function DeatailedCourse({
   const handleClose = () => setOpen(false);
 
   const enrollStudent= ()=>{
-    axios.post(`${process.env.API_URL}/api/enroll`,{
+    axios.post(`${import.meta.env.VITE_APP_URL}/api/enroll`,{
       userId:"654e11505265f393f94959ce",
       courseId:id
     }).then((res) => {

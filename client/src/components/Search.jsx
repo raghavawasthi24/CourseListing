@@ -12,7 +12,7 @@ export default function Search() {
   const dispatch = useDispatch();
 
   const inputHandler = (e)=>{
-    axios.post(`${process.env.API_URL}/api/search`,{query:e.target.value})
+    axios.post(`${import.meta.env.VITE_APP_URL}/api/search`,{query:e.target.value})
     .then((res)=>{
       // console.log(res.data.courses);
       dispatch(getCourses(res.data.courses))

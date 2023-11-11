@@ -19,7 +19,7 @@ export default function EnrolledCourses() {
     {
       navigate("/login")
     }
-    axios.get(`${process.env.API_URL}/api/enrolledCourses/${localStorage.getItem("id")}`)
+    axios.get(`${import.meta.env.VITE_APP_URL}/api/enrolledCourses/${localStorage.getItem("id")}`)
     .then((res)=>{
       console.log(res.data);
       dispatch(getEnrolledCourses(res.data.courses))

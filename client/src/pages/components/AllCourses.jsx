@@ -14,7 +14,7 @@ export default function AllCourses() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.API_URL}/api/getCourses/${page}`)
+      .get(`${import.meta.env.VITE_APP_URL}/api/getCourses/${page}`)
       .then((res) => {
         // console.log(res.data);
         dispatch(getCourses(res.data.allCourses));
