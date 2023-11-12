@@ -6,22 +6,46 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Login() {
+
   const initialValues = {
     email: "",
     password: "",
   };
 
+
+  //updating the fieldvalues
   const [formValues, setFormValues] = useState(initialValues);
   const navigate = useNavigate();
 
+
+  //function to update initialValues with current values
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
 
+
+  //function to login based on user credentials
   const login = () => {
-    axios.post(`${import.meta.env.VITE_APP_URL}/api/login`, {});
+    axios
+      .post(`${import.meta.env.VITE_APP_URL}/api/login`, {
+        email: formValues.email,
+        password: formValues.password,
+      })
+      .then((res) => {
+        localStorage.setItem("token", res.data.jwt_token);
+        localStorage.setItem("id", res.data.id);
+        navigate("/dashboard");
+        toast.success("Logged in successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Invalid Credentials");
+      });
   };
 
+
+  //function to directly login without any credentials
+  //fiels are alreday filled
   const loginDirectly = () => {
     axios
       .post(`${import.meta.env.VITE_APP_URL}/api/login`, {
@@ -39,6 +63,8 @@ export default function Login() {
         toast.error("Invalid Credentials");
       });
   };
+
+  
   return (
     <div className="text-center m-5-auto">
       <h2>Sign In</h2>

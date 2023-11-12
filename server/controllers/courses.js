@@ -155,8 +155,9 @@ const likeCourse = async (req, res) => {
     if (!userId || !courseId) {
       return res.status(400).json({ msg: "userId or courseId not provided" });
     } else {
-      const course = await Courses.findById(courseId); // Assuming your model is named 'Course'
-      console.log(course);
+      const course = await Courses.findById(courseId).select('likes'); // Assuming your model is named 'Course'
+      console.log(course,course.likes);
+    
 
       if (!course.likes.includes(userId)) {
         await course.updateOne({ $push: { likes: userId } });

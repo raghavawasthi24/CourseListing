@@ -9,12 +9,15 @@ export default function AllCourses() {
   const courseList = useSelector((state) => state.courses.coursesList);
   const dispatch = useDispatch();
   const [page,setPage] = useState(1);
+  const [loading,setLoading] = useState(false);
 
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${import.meta.env.VITE_APP_URL}/api/getCourses/${page}`)
       .then((res) => {
+        setLoading(false);
         // console.log(res.data);
         dispatch(getCourses(res.data.allCourses));
       })
@@ -26,8 +29,12 @@ export default function AllCourses() {
 
   return (
     <div className="flex flex-col gap-2">
+     
       <p className="font-bold text-xl sm:mx-14 mx-4">All Courses</p>
+      {loading?
+      <p className="text-black text-center">Please wait since API's are deployed on Render ! Please refresh again</p>:null}
       <div className="w-[90%] m-auto grid md:grid-cols-2 gap-2 lg:grid-cols-3 ">
+        
         {courseList.map((courses, key) => {
           return (
             <DeatailedCourse

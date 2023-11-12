@@ -45,17 +45,22 @@ export default function DeatailedCourse({
   thumbnail,
 }) {
   const dispatch = useDispatch();
+
+  //fetching all details of particular course
   const details = useSelector((state) => state.courses.courseDetails);
   const [open, setOpen] = React.useState(false);
   // console.log(details);
 
-
+  
+  //function to open details screen
   const handleOpen = () => {
     axios.get(`${import.meta.env.VITE_APP_URL}/api/getDetails/${id}`).then((res) => {
       dispatch(getDetails(res.data.courseDetails));
     });
     setOpen(true);
   };
+
+  //function to close details screen
   const handleClose = () => setOpen(false);
 
   const enrollStudent= ()=>{
@@ -107,7 +112,10 @@ export default function DeatailedCourse({
           </div>
         </div>
       </div>
+    
 
+      {/* details screen */}
+      {/* open on clicking 'view details' */}
       <Modal
         open={open}
         onClose={handleClose}
