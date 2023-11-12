@@ -15,7 +15,7 @@ Welcome to the Course List App - A full stack MERN Project!
 
 ## Getting Started
 
-To get started with the Book Directory API, follow these steps:
+To get started, follow these steps:
 
 1. Clone the repository to your local machine.
 
