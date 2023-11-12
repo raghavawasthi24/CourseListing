@@ -98,8 +98,15 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>LogOut</MenuItem>
+      <Link to="/" className="text-md text-gray-500 mx-2 hidden md:block">
+        Home
+      </Link>
+      <Link
+        to="/dashboard"
+        className="text-md text-gray-500 mx-2 hidden md:block"
+      >
+        Dashboard
+      </Link>
     </Menu>
   );
 
@@ -121,36 +128,17 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          {/* <Badge badgeContent={4} color="error"> */}
-          <MailIcon />
-          {/* </Badge> */}
-        </IconButton>
-        <p>Messages</p>
+        <Link to="/" className="text-md text-gray-500 mx-2 hidden md:block">
+          Home
+        </Link>
       </MenuItem>
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
+        <Link
+          to="/dashboard"
+          className="text-md text-gray-500 mx-2 hidden md:block"
         >
-          {/* <Badge badgeContent={17} color="error"> */}
-          <NotificationsIcon />
-          {/* </Badge> */}
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
+          Dashboard
+        </Link>
       </MenuItem>
     </Menu>
   );
@@ -159,21 +147,16 @@ export default function Header() {
     <Box sx={{ flexGrow: 1, backgroundColor: "white" }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="black"
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            color="black"
-          >
+            <MenuIcon /> 
+          </IconButton> */}
+          <Typography variant="h6" noWrap component="div" color="black">
             Courses
           </Typography>
 
@@ -196,6 +179,7 @@ export default function Header() {
               <NotificationsIcon />
               {/* </Badge> */}
             </IconButton>
+
             <IconButton
               size="large"
               edge="end"
@@ -207,18 +191,19 @@ export default function Header() {
             >
               <AccountCircle />
             </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
+
+            {/* <IconButton
               size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
+              onClick={handleProfileMenuOpen}
+              color="black"
+              sx={{display:{xs:"block", md:"none"}}}
             >
-              <MoreIcon />
-            </IconButton>
+              <MenuIcon />
+            </IconButton> */}
           </Box>
         </Toolbar>
       </AppBar>

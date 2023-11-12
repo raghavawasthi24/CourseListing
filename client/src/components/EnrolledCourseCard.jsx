@@ -32,7 +32,7 @@ export default function EnrolledCourseCard({
 
   return (
     <div>
-      <div className="w-[350px] m-4 border rounded-xl overflow-hidden">
+      <div className="w-[300px] sm:w-[350px] m-2 sm:m-4 border rounded-xl overflow-hidden">
         <img
           src="https://trainings.internshala.com/cached_uploads/homepage/media/courses_section/card_images/web-development.png"
           alt=""

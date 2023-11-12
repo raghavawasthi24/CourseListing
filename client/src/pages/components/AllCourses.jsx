@@ -4,7 +4,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getCourses } from "../../redux/slices/CoursesSlice";
 import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 
 export default function AllCourses() {
   const courseList = useSelector((state) => state.courses.coursesList);
@@ -26,9 +25,9 @@ export default function AllCourses() {
 
 
   return (
-    <div className="">
-      <p className="font-bold text-xl mx-14">All Courses</p>
-      <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 lg:grid-cols-3 ">
+    <div className="flex flex-col gap-2">
+      <p className="font-bold text-xl sm:mx-14 mx-4">All Courses</p>
+      <div className="w-[90%] m-auto grid md:grid-cols-2 gap-2 lg:grid-cols-3 ">
         {courseList.map((courses, key) => {
           return (
             <DeatailedCourse

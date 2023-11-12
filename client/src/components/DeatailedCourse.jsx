@@ -72,7 +72,7 @@ export default function DeatailedCourse({
 
   return (
     <div>
-      <div className="w-[330px] lg:w-[300px] border rounded-xl overflow-hidden">
+      <div className="w-[300px] sm:w-[330px] lg:w-[300px] border rounded-xl overflow-hidden">
         <img
           src={thumbnail}
           alt=""
