@@ -5,80 +5,73 @@ Welcome to the Course List App - A full stack MERN Project!
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-- Backend
-   - Getting Started
+- [Backend](#backend)
+   - How to run?
    - [Routes](#routes)
-- Frontend
+- [Frontend](#frontend)
    - How to start it?
    - Functionalities  
 
 
 ## Getting Started
 
-To get started with the Book Directory API, follow these steps:
+To get started, follow these steps:
 
 1. Clone the repository to your local machine.
 
-2. Install the required dependencies: npm install
+2. To clone, copy the repo url and run in the terminal with `git clone`
 
-3. Start the server: nodemom index.js
 
-4. The API is now running on `http://localhost:3000`.
+## BACKEND
+
+## How to run API?
+
+- Run command, `cd server`
+- To install all dependencies, run `npm i`
+- To start server, `nodemon`
 
 ## Routes
 
-The API provides the following routes for managing books:
+### Get list of courses
 
-### Get All Books
+- Route: `GET /getCourses/:pageNo`
+- It returns courses for first page. PageNo refers for pagination
 
-- Route: `GET /getAllBooks`
-- Description: Retrieve all books in the directory.
+### Get Details by ID
 
-### Get Book by ID
+- Route: `GET /getDetails/:id`
+- Description: Get details of specific course by its ID.
 
-- Route: `GET /getBook/:id`
-- Description: Retrieve a specific book by its ID.
+### Get Enrolled Courses by ID
 
-### Create a New Book
-
-- Route: `POST /createBook`
-- Description: Create a new book record.
-
-### Update Book by ID
-
-- Route: `PUT /updateBook/:id`
-- Description: Update a specific book by its ID.
-
-### Delete Book by ID
-
-- Route: `DELETE /deleteBook/:id`
-- Description: Delete a specific book by its ID.
-
-## Error Handling
-
-The API includes error handling for various scenarios. The error messages and status codes are provided to help identify issues during API usage.
-
-## Screenshots
+- Route: `GET /emrolledCourses/:id`
+- Description: Get list of course, a user is enrolled by its userID.
 
 
-- [Screenshot 1: Create a New Book](#)
-  
-![Screenshot (56)](https://github.com/SAUMYXA/NodeJS-Book-Directory-CRUD/assets/104627870/98b69247-d702-474b-9240-f72c132a89d4)
+### Mark Course As Completed
 
-- [Screenshot 2: Retrieve All Books](#)
-  
-  ![Screenshot (57)](https://github.com/SAUMYXA/NodeJS-Book-Directory-CRUD/assets/104627870/c59634c2-bba7-4bdc-8530-07ad35d2b766)
+- Route: `POST /markCompleted`
+- Description: Pass userId and courseId in the body.
 
-- [Screenshot 3: Delete a Book](#)
+### Search
 
-  ![Screenshot (58)](https://github.com/SAUMYXA/NodeJS-Book-Directory-CRUD/assets/104627870/86867d0d-18b0-4748-a7aa-7922aa058b50)
+- Route: `POST /search`
+- Description: Pass the query in the body and it will search based on course Name and instructor name
 
-- [Screenshot 4: Update a Book ](#)
+## FRONTEND
 
-![Screenshot (59)](https://github.com/SAUMYXA/NodeJS-Book-Directory-CRUD/assets/104627870/47963158-0eca-43c0-bac3-35b927d853e0)
+## How to start it?
 
-- [Screenshot 5: Get a Book by its id ](#)
+- Run command, `cd client`
+- To install all dependencies, run `npm i`
+- To start server, `npm run dev`
 
-  ![Screenshot (60)](https://github.com/SAUMYXA/NodeJS-Book-Directory-CRUD/assets/104627870/b406b0f0-b3fa-4974-b6e3-b329e2ae9c8c)
+##Functionalities
 
-Thank you for using the Book Directory API!
+ - Redux is used for data management
+ - Pagination implemented
+ - Can set courses as completed but can't again mark uncompleted
+ - Enroll in courses
+ - Can access dashboard only after login
+ - Login as Guest functionality provided
+
