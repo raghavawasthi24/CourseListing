@@ -1,6 +1,6 @@
 # Course List
 
-Welcome to the Course List App - A full stack MERN Project!
+Welcome to the Course List App - A full stack MERN Project !
 
 ## Table of Contents
 
